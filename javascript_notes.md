@@ -46,3 +46,43 @@ if (actual === expected) {
 
 Pythonでは `if 条件:` と字下げで処理の範囲を示すが、
 JavaScriptでは条件を `( )` で囲み、処理の範囲を `{ }` で示す。
+
+
+## 04 配列・オブジェクト・繰り返し
+
+`02_check_app.js` では、複数の確認項目をまとめて扱った。
+
+```javascript
+const checks = [
+  { name: "訪問判定", expected: "成功", actual: "成功" },
+  { name: "御城印の表示", expected: "表示", actual: "表示" },
+  { name: "同日再訪問", expected: "カウントしない", actual: "カウントしない" }
+];
+```
+
+- `[]` は配列。複数の項目を順番に入れられる。
+- `{}` はオブジェクト。1項目の名前、期待値、実際の値をまとめられる。
+- `check.name` のように書くと、オブジェクトの値を取り出せる。
+
+```javascript
+let passed = 0;
+
+for (const check of checks) {
+  if (check.actual === check.expected) {
+    passed += 1;
+  }
+}
+
+console.log(`結果：${passed}/${checks.length}件 合格`);
+```
+
+- `for...of` は配列の項目を1つずつ取り出して処理する。
+- `passed += 1` は、合格するたびに件数を1増やす。
+- `checks.length` は、配列に入っている項目数を表す。
+- `${passed}` は、バッククォートで囲んだ文字列に変数の値を入れる書き方。
+
+### 実行して分かったこと
+
+最初は「同日再訪問」の期待値と実際の値を変えて実行し、2/3件合格と表示された。実際の値を期待値と同じに変更して再実行すると、3/3件合格になった。
+
+今回はコード内の値を比較した。今後はHTML・CSSで画面を作り、JavaScriptでボタン操作や表示変更を実装する。
