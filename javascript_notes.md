@@ -86,3 +86,45 @@ console.log(`結果：${passed}/${checks.length}件 合格`);
 最初は「同日再訪問」の期待値と実際の値を変えて実行し、2/3件合格と表示された。実際の値を期待値と同じに変更して再実行すると、3/3件合格になった。
 
 今回はコード内の値を比較した。今後はHTML・CSSで画面を作り、JavaScriptでボタン操作や表示変更を実装する。
+
+
+## 05 HTMLの要素とクリックイベント
+
+`03_button_message.html` と `03_button_message.js` では、ボタン操作に応じてWebページの表示を変更した。
+
+### HTMLとJavaScriptをつなぐ
+
+HTMLの要素に`id`を付けると、JavaScriptからその要素を指定できる。
+
+```html
+<p id="message">まだ確認していません</p>
+<button id="checkButton">確認する</button>
+
+<script src="03_button_message.js"></script>
+```
+
+`script`の`src`には、読み込むJavaScriptファイルの名前を書く。今回はHTMLファイルとJavaScriptファイルを同じフォルダに置いた。
+
+### 要素を取得してクリック時の処理を登録する
+
+```javascript
+const button = document.getElementById("checkButton");
+const message = document.getElementById("message");
+
+button.addEventListener("click", () => {
+  message.textContent = "確認が完了しました";
+  button.textContent = "確認済み";
+  button.disabled = true;
+});
+```
+
+- `document.getElementById("checkButton")`：指定した`id`のHTML要素を取得する。
+- `addEventListener("click", ...)`：ボタンがクリックされたときの処理を登録する。
+- `textContent`：要素に表示する文字を変更する。
+- `disabled = true`：ボタンを無効化し、再度押せないようにする。
+
+### 実行して分かったこと
+
+ブラウザでHTMLファイルを開くと初期メッセージが表示された。ボタンを押すとメッセージとボタンの文字が変わり、ボタンが無効になった。再読み込みすると初期状態に戻った。
+
+前回までの課題はコード内の値を比較してターミナルに結果を出した。今回はHTMLの要素をJavaScriptから操作し、ブラウザ上の表示を変更した。
